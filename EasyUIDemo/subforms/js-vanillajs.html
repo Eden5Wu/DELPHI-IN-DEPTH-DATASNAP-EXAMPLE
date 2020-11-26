@@ -1,0 +1,82 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../js/easyui/1.3.2/themes/default/easyui.css">
+    <link rel="stylesheet" href="../js/easyui/1.3.2/themes/icon.css">
+    <script src="../js/easyui/1.3.2/jquery-1.8.0.min.js"></script>
+    <script src="../js/easyui/1.3.2/jquery.easyui.min.js"></script>
+    <title></title>
+  </head>
+  <script>
+    // window.parent 可以存取父層變數及函式
+    var parentWin = window.parent;
+
+    function onVanillaJSReverseStringClick()
+    {
+      function fetchXMLHttpRequest() {
+        if (typeof XMLHttpRequest !== "undefined")
+          return new XMLHttpRequest();
+        else if (ActiveXObject)
+        {
+          var aVersions = ["Msxml2.XMLHTTP.6.0", "Msxml2.XMLHTTP.3.0", "Msxml2.XMLHTTP", "Microsoft.XMLHTTP"];
+          for (var i = 0; i < aVersions.length; i++)
+          {
+            try
+            {
+              return new ActiveXObject(aVersions[i]);
+              break;
+            } catch (e) {return new Error("This browser does not support XMLHttpRequest.");}
+          }
+        }
+      }
+      var valueField = document.getElementById('valueField_vjs');
+      var url = null;
+      // use GET
+      url = "http://"+parentWin.connectionInfo.host+":"+parentWin.connectionInfo.port+"/datasnap/rest/TServerMethods1/ReverseString/" + valueField.value
+      var xhrGET = fetchXMLHttpRequest();
+      xhrGET.open("GET", url, true);
+      xhrGET.onreadystatechange = function() {
+        if (xhrGET.readyState == 4)
+        {
+          var jsonResult = JSON.parse(xhrGET.responseText);
+          valueField.value = jsonResult.result;
+          console.log("GET fetch value : " + jsonResult.result);
+        }
+      };
+      xhrGET.send();
+      // use POST
+      var params = JSON.stringify({"_parameters":[valueField.value]});
+      url = 'http://'+parentWin.connectionInfo.host+':'+parentWin.connectionInfo.port+'/datasnap/rest/TServerMethods1/"ReverseString"/';
+      var xhrPOST = fetchXMLHttpRequest();
+      xhrPOST.open("POST", url, true);
+      xhrPOST.onreadystatechange = function() {
+        if (xhrPOST.readyState == 4)
+        {
+          var jsonResult = JSON.parse(xhrPOST.responseText);
+          valueField.value = jsonResult.result;
+          console.log("POST fetch value : " + jsonResult.result);
+        }
+      };
+      xhrPOST.send(params);
+    }
+  </script>
+  <body>
+    <table>
+      <tr>
+        <td><input id="valueField_vjs" class="loginField" type="text" value="A B C" /></td>
+        <td>
+          <a
+            id="btn"
+            href="javascript:onVanillaJSReverseStringClick();"
+            class="easyui-linkbutton"
+            data-options="iconCls:'icon-search'"
+          >
+            ReverseString for VanillaJS
+          </a>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

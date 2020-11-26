@@ -1,0 +1,88 @@
+﻿<!DOCTYPE HTML>
+
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>EasyUI Accordion手風琴容器展示</title>
+    <!-- EasyUI framework -->
+    <link rel="stylesheet" href="../js/easyui/1.3.2/themes/default/easyui.css">
+    <link rel="stylesheet" href="../js/easyui/1.3.2/themes/icon.css">
+    <link rel="stylesheet" href="../js/easyui/1.3.2/demo/demo.css">
+    <script src="../js/easyui/1.3.2/jquery-1.8.0.min.js"></script>
+    <script src="../js/easyui/1.3.2/jquery.easyui.min.js"></script>
+  </head>
+
+  <body>
+    <h2>Accordion手風琴容器</h2>
+    <div class="demo-info">
+      <div class="demo-tip icon-tip"></div>
+      <div style="font-size:1.6em">按下手風琴容器標題顯示其內容。</div>
+    </div>
+    <div style="margin:10px 0;"></div>
+    <div id="accordionDiv" class="easyui-accordion" style="width:500px;height:300px;">
+      <div title="About" data-options="iconCls:'icon-ok'" style="overflow:auto;padding:10px;">
+        <h3 style="color:#0099FF;">Accordion for jQuery</h3>
+        <p>Accordion is a part of easyui framework for jQuery. It lets you define your accordion component on web page more easily.</p>
+      </div>
+      <div title="Help" data-options="iconCls:'icon-help'" style="padding:10px;">
+        <p>The accordion allows you to provide multiple panels and display one at a time. Each panel has built-in support for expanding and collapsing. Clicking on a panel header to expand or collapse that panel body. The panel content can be loaded via ajax by specifying a 'href' property. Users can define a panel to be selected. If it is not specified, then the first panel is taken by default.</p>
+      </div>
+      <div title="TreeMenu" data-options="iconCls:'icon-search'" style="padding:10px;">
+        <ul class="easyui-tree">
+          <li>
+            <span>Foods</span>
+            <ul>
+              <li>
+                <span>Fruits</span>
+                <ul>
+                  <li>apple</li>
+                  <li>orange</li>
+                </ul>
+              </li>
+              <li>
+                <span>Vegetables</span>
+                <ul>
+                  <li>tomato</li>
+                  <li>carrot</li>
+                  <li>cabbage</li>
+                  <li>potato</li>
+                  <li>lettuce</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin:10px 0;">
+      <input class="easyui-searchbox" data-options="prompt:'請輸入要選擇的標題',searcher:doSearch" style="width:300px" />
+      <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="add()">新增</a>
+      <a href="javascript:void(0)" class="easyui-linkbutton" data-options="iconCls:'icon-remove'" onclick="remove()">移除</a>
+    </div>
+    <script>
+      var idx = 1;
+      function doSearch(value){
+        if (value){
+          $("#accordionDiv").accordion("select",value);
+        }
+      }
+
+      function add(){
+        $("#accordionDiv").accordion('add',{
+          title:'Title'+idx,
+          content:'<div style="padding:10px">Content'+idx+'</div>'
+        });
+        idx++;
+      }
+
+      function remove(){
+        var pp = $("#accordionDiv").accordion('getSelected');
+        if (pp){
+          var index = $('#accordionDiv').accordion('getPanelIndex',pp);
+          $('#accordionDiv').accordion('remove',index);
+        }
+      }
+    </script>
+  </body>
+</html>
+

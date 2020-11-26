@@ -1,0 +1,76 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../js/easyui-1.3.2/themes/default/easyui.css">
+    <link rel="stylesheet" href="../js/easyui-1.3.2/themes/icon.css">
+    <script src="../js/easyui-1.3.2/jquery-1.8.0.min.js"></script>
+    <script src="../js/easyui-1.3.2/jquery.easyui.min.js"></script>
+    <script src="../js/easyui-1.3.2/locale/easyui-lang-zh_TW-with-BOM.js"></script>
+
+    <script type="text/javascript" src="../js/base64.js"></script>
+    <script type="text/javascript" src="../js/json2.js"></script>
+    <script type="text/javascript" src="../js/serverfunctionexecutor.js"></script>
+    <script type="text/javascript" src="../js/connection.js"></script>
+    <title>EMPS1100 員工資料管理系統</title>
+
+    <script type="text/javascript" src="emps1100.js"></script>
+  </head>
+
+  <body>
+    <table id="dg" title="My Users" class="easyui-datagrid" style="width:700px;height:250px"
+    		url=''
+            data-options="method:'get'"
+    		toolbar="#toolbar" pagination="true"
+			rownumbers="true" fitColumns="true" singleSelect="true">
+    	<thead>
+    		<tr>
+    			<th field="FirstName" width="50">First Name</th>
+    			<th field="LastName" width="50">Last Name</th>
+    			<th field="PhoneExt" width="50">Phone Ext</th>
+    			<th field="Salary" width="50">Salary</th>
+    		</tr>
+    	</thead>
+    </table>
+    <div id="toolbar">
+        <select id="search_field" style="border:1px solid #ccc;">
+          <option value="FirstName">First Name</option>
+          <option value="LastName">Last Name</option>
+        </select>
+        <input id="search_value" />
+        <a href="#" class="easyui-linkbutton" plain="true" onclick="searchEmployee()">搜尋</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="addEmployee()">New User</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editEmployee()">Edit User</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="dropEmployee()">Remove User</a>
+    </div>
+
+    <div id="dlg" class="easyui-dialog" style="width:400px;height:280px;padding:10px 20px"
+    		closed="true" buttons="#dlg-buttons">
+    	<div class="ftitle">User Information</div>
+    	<form id="fm" method="post">
+    		<div class="fitem">
+    			<label>First Name:</label>
+    			<input name="FirstName" class="easyui-validatebox" required="true">
+    		</div>
+    		<div class="fitem">
+    			<label>Last Name:</label>
+    			<input name="LastName" class="easyui-validatebox" required="true">
+    		</div>
+    		<div class="fitem">
+    			<label>Phone Ext:</label>
+    			<input name="PhoneExt">
+    		</div>
+    		<div class="fitem">
+    			<label>Salary:</label>
+    			<input name="Salary" class="easyui-numberbox">
+    		</div>
+    	</form>
+    </div>
+    <div id="dlg-buttons">
+    	<a href="#" class="easyui-linkbutton" iconCls="icon-ok" onclick="saveEmployee()">Save</a>
+    	<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')">Cancel</a>
+    </div>
+  </body>
+</html>
+

@@ -1,0 +1,63 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- EasyUI CDN -->
+	<link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/icon.css">
+	<script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.min.js"></script>
+	<script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+    <!-- EasyUI 外掛 CDN -->
+    <script type="text/javascript" src="https://www.jeasyui.com/easyui/datagrid-detailview.js"></script>
+    <script type="text/javascript" src="datagrid-export.js"></script>
+
+    <script src="../js/easyui-1.3.2/locale/easyui-lang-zh_TW-with-BOM.js"></script>
+
+    <script type="text/javascript" src="../js/base64.js"></script>
+    <script type="text/javascript" src="../js/json2.js"></script>
+    <script type="text/javascript" src="../js/serverfunctionexecutor.js"></script>
+    <script type="text/javascript" src="../js/connection.js"></script>
+    <title>FISH1100 水族箱世界</title>
+
+    <script type="text/javascript" src="fish1200.js"></script>
+    <style>
+        .dv-table td{
+            border:0;
+        }
+        .dv-label{
+            font-weight:bold;
+            color:#15428B;
+            width:100px;
+        }
+    </style>
+  </head>
+
+  <body>
+	<h2>水族箱展示系統</h2>
+	<table id="dg" style="width:800px;height:350px"
+			url=""
+            data-options="method:'get'"
+			pagination="true" sortName="Species_No" sortOrder="desc"
+			title="DataGrid - Expand Row"
+			singleSelect="true" fitColumns="true"
+            toolbar="#toolbar">
+		<thead>
+			<tr>
+				<th field="Species_No" width="80">Species No</th>
+				<th field="Category" width="80">Category</th>
+                <th field="Common_Name" width="100">CommonName</th>
+				<th field="Length_cm" align="right" width="60">Length cm</th>
+				<th field="Length_in" align="right" width="60">Length in</th>
+				<th field="Species_Name" width="220">Species Name</th>
+			</tr>
+		</thead>
+	</table>
+
+    <div id="toolbar">
+        <a href="#" class="easyui-linkbutton" iconCls="icon-redo" plain="true" onclick="onExportExcel()">匯出 Excel</a>
+        <a href="#" class="easyui-linkbutton" iconCls="icon-print" plain="true" onclick="onPrint()">列印</a>
+    </div>
+  </body>
+</html>
+

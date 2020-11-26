@@ -1,0 +1,62 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="../js/easyui/1.3.2/themes/default/easyui.css">
+    <link rel="stylesheet" href="../js/easyui/1.3.2/themes/icon.css">
+    <script src="../js/easyui/1.3.2/jquery-1.8.0.min.js"></script>
+    <script src="../js/easyui/1.3.2/jquery.easyui.min.js"></script>
+    <title></title>
+    <script>
+      var parentWin = window.parent;
+
+      function onReverseStringClick()
+      {
+        var fieldValue = ''
+        // use GET
+        var valueField = document.getElementById('valueField');
+        fieldValue = valueField.value;
+        var s = parentWin.serverMethods().ReverseString(fieldValue);
+        valueField.value = s.result;
+        // use Async POST
+        function xhrCallback(returnObject)
+        {
+          if (returnObject != null && returnObject.result != null && parentWin.isArray(returnObject.result))
+          {
+          valueField.value = returnObject.result;
+          console.log('DataSnap aync result : ' + valueField.value);
+          } else { console.log('DataSnap async response : ' + returnObject); }
+        }
+        var xhrAsync = new parentWin.ServerFunctionExecutor("TServerMethods1",parentWin.connectionInfo);
+        xhrAsync.executeMethod('"ReverseString"', "POST", [fieldValue], xhrCallback);
+        // use Sync POST
+        var xhrSync = new parentWin.ServerFunctionExecutor("TServerMethods1",parentWin.connectionInfo);
+        var resultObject = xhrSync.executeMethod('"ReverseString"', "POST", [fieldValue]);
+        if (resultObject != null && resultObject.result != null && parentWin.isArray(resultObject.result))
+          console.log('DataSnap sync result : ' + resultObject.result);
+        else
+          console.log('DataSnap sync response : ' + resultObject);
+      }
+    </script>
+  </head>
+
+  <body>
+    <table>
+      <tr>
+        <td><input id="valueField" class="loginField" type="text" value="A B C" /></td>
+        <td>
+          <a
+            id="btn"
+            href="javascript:onReverseStringClick();"
+            class="easyui-linkbutton"
+            data-options="iconCls:'icon-search'"
+          >
+            ReverseString for JavaScript API
+          </a>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+
